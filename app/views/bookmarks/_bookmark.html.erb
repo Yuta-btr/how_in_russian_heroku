@@ -1,0 +1,15 @@
+<% if question.bookmark_by?(current_user) %>
+  <%= link_to bookmarks_path(bookmark: {question_id: question.id}),
+    method: :delete, remote: true do %>
+    <span style="font-size: 1.75em; color: #e33748;" class="pl-2">
+      <i class="fas fa-bookmark"></i>
+    </span>
+  <% end %>
+<% else %>
+<%= link_to bookmarks_path(bookmark: {question_id: question.id}),
+  method: :post, remote: true do %>
+  <span style="font-size: 1.75em; color: #e33748;" class="pl-2">
+    <i class="far fa-bookmark"></i>
+  </span>
+<% end %>
+<% end %>

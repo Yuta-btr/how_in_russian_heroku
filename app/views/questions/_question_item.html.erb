@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="question-detail mx-auto py-2">
+    <% @questions.each do |question| %>
+    <div class="container pt-2">
+      <div class="row pl-1 pb-sm-1">
+        <div class="col-sm-6 d-flex align-items-end">
+          <% if question.user.profile_img? %>
+          <%= image_tag question.user.profile_img.url, class:"icon_dropdown" %>
+          <% else %>
+          <%= image_tag "no_image.jpg", class:"icon_dropdown" %>
+          <% end %>
+          <span class="pl-2"><%= question.user.name %>さんの質問</span>
+        </div>
+        <div class="col-sm-6 text-sm-right d-flex align-items-sm-end justify-content-sm-end">
+          <%= question.created_at.to_s(:datetime_jp) %>
+        </div>
+      </div>
+    </div>
+    <div class="pb-2">
+      <div class="card bg-light">
+        <div class="card-body">
+
+            <%= link_to question_path(question.id) do %>
+            <div class="question-text">
+              <h5 class="card-title"><b><%= question.question %></b></h5>
+              <p class="card-text text-right">
+                ってロシア語でなんて言うの？
+                <i class="fas fa-external-link-alt"></i>
+              </p>
+            </div>
+            <% end %>
+
+          <hr>
+          <p><%= question.explanation %></p>
+          <hr>
+          <div class="d-flex">
+            <div class="mr-auto align-self-center">
+              <% if question.answers.empty? %>
+              <span>回答なし</span>
+              <% else %>
+              <span><%= question.answers.count %>人が回答</span>
+              <% end %>
+            </div>
+            <% if user_signed_in? %>
+            <% if question.user_id != current_user.id %>
+              <div class="align-self-center pr-2" id="question_id_<%= question.id %>">
+                <%= render partial: 'bookmarks/bookmark', locals: { question: question} %>
+              </div>
+              <div class="align-self-center">
+                <% if question.answers.map{|answer| answer.user_id}.include?(current_user.id) %>
+                <%= link_to "回答済み", question_path(question.id),
+                  class: "btn btn-info mx-auto" %>
+                <% else %>
+                <%= link_to "回答する", new_question_answer_path(question_id: question.id),
+                  class: "btn btn-primary mx-auto" %>
+                <% end %>
+              </div>
+            <% end %>
+            <% if question.user_id == current_user.id && question.answers.empty? %>
+              <div class="align-self-center pr-2">
+                <%= link_to "編集", edit_question_path(id: question.id),
+                  class: "btn btn-primary mx-auto" %>
+              </div>
+            <% end %>
+            <% if question.user_id == current_user.id %>
+              <div class="align-self-center">
+                <%= link_to "削除", question_path(id: question.id),
+                  method: :delete, class: "btn btn-danger mx-auto" %>
+              </div>
+            <% end %>
+            <% end %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <% end %>
+    <%= paginate @questions, window: 1 %>
+  </div>
+</div>

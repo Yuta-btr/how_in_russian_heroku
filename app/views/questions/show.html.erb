@@ -1,0 +1,133 @@
+<%= render "question_tab" %>
+
+<div class="container">
+  <div class="question-detail mx-auto py-2">
+
+    <!-- 質問 -->
+    <div class="container pt-2">
+      <div class="row pl-1 pb-sm-1">
+        <div class="col-sm-6 d-flex align-items-end">
+          <% if @question.user.profile_img? %>
+          <%= image_tag @question.user.profile_img.url, class:"icon_dropdown" %>
+          <% else %>
+          <%= image_tag "no_image.jpg", class:"icon_dropdown" %>
+          <% end %>
+          <span class="pl-2"><%= @question.user.name %>さん</span>
+        </div>
+        <div class="col-sm-6 text-sm-right d-flex align-items-sm-end justify-content-sm-end">
+          <%= @question.created_at.to_s(:datetime_jp) %>
+        </div>
+      </div>
+    </div>
+    <div class="card bg-light">
+      <div class="card-body">
+        <h5 class="card-title"><b><%= @question.question %></b></h5>
+        <p class="card-text text-right">ってロシア語でなんて言うの？</p>
+        <hr>
+        <p><%= @question.explanation %></p>
+        <hr>
+        <div class="d-flex">
+          <div class="mr-auto align-self-center">
+            <% if @question.answers.empty? %>
+            <span>回答なし</span>
+            <% else %>
+            <span><%= @question.answers.count %>人が回答</span>
+            <% end %>
+          </div>
+          <% if user_signed_in? %>
+          <% if @question.user_id != current_user.id %>
+            <div class="align-self-center pr-2" id="question_id_<%= @question.id %>">
+              <%= render partial: 'bookmarks/bookmark', locals: { question: @question} %>
+            </div>
+            <div class="align-self-center">
+              <% if @question.answers.map{|answer| answer.user_id}.include?(current_user.id) %>
+              <%= link_to "回答済み", question_path(@question.id),
+                class: "btn btn-info mx-auto disabled" %>
+              <% else %>
+              <%= link_to "回答する", new_question_answer_path(question_id: @question.id),
+                class: "btn btn-primary mx-auto" %>
+              <% end %>
+            </div>
+          <% end %>
+          <% if @question.user_id == current_user.id && @question.answers.empty? %>
+            <div class="align-self-center pr-2">
+              <%= link_to "編集", edit_question_path(id: @question.id),
+                class: "btn btn-primary mx-auto" %>
+            </div>
+          <% end %>
+          <% if @question.user_id == current_user.id %>
+            <div class="align-self-center">
+              <%= link_to "削除", question_path(id: @question.id),
+                method: :delete, class: "btn btn-danger mx-auto" %>
+            </div>
+          <% end %>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+    <hr>
+
+    <!-- 回答 -->
+    <% if @answers.any? %>
+    <% @answers.each do |answer| %>
+
+    <div class="container mt-2">
+      <div class="row pl-1 pb-sm-1">
+        <div class="col-sm-6 d-flex align-items-end">
+          <% if answer.user.profile_img? %>
+          <%= image_tag answer.user.profile_img.url, class:"icon_dropdown" %>
+          <% else %>
+          <%= image_tag "no_image.jpg", class:"icon_dropdown" %>
+          <% end %>
+          <span class="pl-2"><%= answer.user.name %>さんの回答</span>
+        </div>
+        <div class="col-sm-6 text-sm-right d-flex align-items-sm-end justify-content-sm-end">
+          <%= answer.created_at.to_s(:datetime_jp) %>
+        </div>
+      </div>
+    </div>
+
+    <div class="pb-4">
+      <div class="card border-dark">
+        <div class="card-body">
+          <h6 class="card-title"><b><%= answer.answer %></b></h6>
+          <hr>
+          <p><%= answer.explanation %></p>
+        </div>
+        <div class="card-footer bg-transparent border-dark">
+          <small>回答者</small>
+          <small><%= answer.user.name %>さん</small><br>
+          <small>質問数：<%= answer.user.questions.count %>
+          <span class="pl-2">回答数：<%= answer.user.answers.count %></span></small></br>
+          <small>Website：<a href="<%= answer.user.website %>">
+            <%= answer.user.website %></a></small><br>
+          <small><%= answer.user.introduction %></small><br>
+        </div>
+        <% if user_signed_in? %>
+        <% if answer.user_id == current_user.id %>
+        <hr>
+        <div class="text-center pb-2">
+          <%= link_to "回答を編集する", edit_answer_path(answer.id),
+            class: "btn btn-info mx-auto" %>
+        </div>
+        <div class="text-center pb-2">
+          <%= link_to "回答を削除する", answer_path(answer.id),
+            method: :delete, class: "btn btn-danger mx-auto" %>
+        </div>
+        <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <% end %>
+    <% else %>
+    <p>この質問にまだ回答はありません。</p>
+    <% end %>
+
+  </div>
+</div>

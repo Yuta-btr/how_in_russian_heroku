@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="user-form mx-auto">
+    <h3 class="text-center pt-2">質問を作成する</h3>
+    <%= form_with(model: @question, url: {action: "create"}, local: true) do |f| %>
+    <div class="form-group">
+      <span style="color: #e86060;"><i class="fas fa-pencil-alt"></i></span>
+      <%= f.label :question, "質問したい表現" %><br />
+      <%= f.text_area :question, { class: "form-control", 'data-style': 'form-control', required: true, size: "10x5" } %>
+    </div>
+    <div class="form-group">
+      <span style="color: #e86060;"><i class="fas fa-pencil-alt"></i></span>
+      <%= f.label :explanation, "どんな状況で使いたい？" %><br />
+      <%= f.text_area :explanation, { class: "form-control", 'data-style': 'form-control', required: true, size: "10x10"  } %>
+    </div>
+    <%= f.submit "質問を投稿する", class: "btn btn-primary btn-lg btn-block my-3" %>
+    <% end %>
+  </div>
+</div>

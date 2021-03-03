@@ -1,0 +1,14 @@
+<%= render "question_tab" %>
+
+<% if @questions.present? %>
+<%= render "question_item" %>
+<% else %>
+<div class="container">
+  <div class="question-detail mx-auto py-2">
+    <p class="text-center pt-3">未回答の質問はありません。</p>
+    <div style="text-align: center">
+      <%= image_tag "no_question.svg", width: "70%" %>
+    </div>
+  </div>
+</div>
+<% end %>

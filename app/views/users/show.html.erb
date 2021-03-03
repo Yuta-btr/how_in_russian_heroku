@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row">
+    <div class="mx-auto pt-3">
+      <% if @user.profile_img? %>
+      <%= image_tag @user.profile_img.url, class:"icon_image" %>
+      <% else %>
+      <%= image_tag "no_image.jpg", class:"icon_image" %>
+      <% end %>
+      <h4 class="mx-auto text-center my-2"><%= @user.name %></h4>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md">
+    </div>
+    <div class="col-md-6">
+      <div class="text-center my-3 mx-auto">
+        <p class="font-weight-bolder"><%= @user.introduction %></p>
+        <p class="font-weight-bolder"><a href="<%= @user.website %>"><%= @user.website %></a></p>
+      </div>
+    </div>
+    <div class="col-md">
+    </div>
+  </div>
+  <div class="row">
+    <ul class="list-group list-group-horizontal mx-auto">
+      <li class="list-group-item">質問数 :
+        <span class="font-weight-bolder"><%= @user.questions.count %></span>
+      </li>
+      <li class="list-group-item">回答数 :
+        <span class="font-weight-bolder"><%= @user.answers.count %></span>
+      </li>
+    </ul>
+  </div>
+  <div class="row">
+    <div class="text-center my-1 mx-auto">
+      <p><%= link_to "アカウント情報を編集する", my_page_edit_path, class: "btn btn-outline-primary btn-lg my-4" %></p>
+    </div>
+  </div>
+
+  <!-- <hr>
+
+  <div class="row">
+    <div class="col-md">
+    </div>
+    <div class="col-md-6">
+      <% 5.times do %>
+      <div class="card bg-light mb-3" >
+        <div class="card-body">
+          <h5 class="card-title">お知らせ  <small>( 2021/01/17 )</small></h5>
+          <p class="card-text">あなたの質問に新しい回答がつきました。</p>
+        </div>
+      </div>
+      <% end %>
+    </div>
+    <div class="col-md">
+    </div>
+  </div> -->
+
+</div>

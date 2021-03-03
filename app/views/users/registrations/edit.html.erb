@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="user-form mx-auto">
+    <h3 class="text-center pt-2">アカウント情報編集</h3>
+
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "users/shared/error_messages", resource: resource %>
+
+    <div class="form-group">
+      <%= f.label :email, "E-mail" %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :name, "ユーザー名" %><br />
+      <%= f.text_field :name, class:"form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :profile_img, "プロフィール画像（２MB以下）" %><br />
+      <%= f.file_field :profile_img, class:"form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :nationality, "国籍" %><br />
+      <%= f.text_field :nationality, class:"form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :introduction, "自己紹介" %><br />
+      <%= f.text_area :introduction, class:"form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :website, "ウェブサイト情報" %><br />
+      <%= f.text_field :website, class:"form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password %> <i>（パスワードを変更時のみ）</i><br />
+      <%= f.password_field :password, autocomplete: "new-password", class:"form-control" %>
+      <% if @minimum_password_length %>
+      <em><%= @minimum_password_length %> 文字以上</em>
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password_confirmation %> <i>（パスワードを変更時のみ）</i><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :current_password %> <i>（必須）</i><br />
+      <%= f.password_field :current_password, autocomplete: "current-password", class:"form-control" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "アカウント情報を変更", class:"btn btn-primary btn-lg btn-block my-4" %>
+    </div>
+
+    <% end %>
+
+    <hr>
+
+    <div class="my-3">
+      <p class="text-center">アカウントの削除はこちら
+        <i class="fas fa-exclamation-triangle" style="color: #ef3a3a"></i>
+        <%= button_to "アカウント削除", registration_path(resource_name),
+          data: { confirm: "【注意】この操作は取り消せません。本当にアカウントを削除しますか？" },
+          method: :delete, class:"btn btn-danger mx-auto d-block" %>
+      </p>
+    </div>
+
+  </div>
+</div>

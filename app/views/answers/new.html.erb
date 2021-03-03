@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="user-form mx-auto">
+    <h2 class="text-center pt-2">質問に回答する</h2>
+    <div class="card bg-light mt-2 mb-3">
+      <div class="card-body">
+        <p class="mb-0"><%= @question.user.name %>さんからの質問</p>
+        <hr>
+        <h5 class="card-title"><b><%= @question.question %></b></h5>
+        <p class="card-text text-right">ってロシア語でなんて言うの？</p>
+        <hr>
+        <p class="mb-0"><%= @question.explanation %></p>
+      </div>
+    </div>
+    <%= form_with(model: @answer, url: {action: "create"}, local: true) do |f| %>
+    <div class="form-group">
+      <span style="color: #e86060;"><i class="fas fa-pencil-alt"></i></span>
+      <%= f.label :answer, "ロシア語でなんて言うか？" %><br />
+      <%= f.text_area :answer, { class: "form-control", 'data-style': 'form-control', required: true, size: "10x5" } %>
+    </div>
+    <div class="form-group">
+      <span style="color: #e86060;"><i class="fas fa-pencil-alt"></i></span>
+      <%= f.label :explanation, "補足説明" %><br />
+      <%= f.text_area :explanation, { class: "form-control", 'data-style': 'form-control', required: true, size: "10x10" } %>
+    </div>
+    <%= f.hidden_field :question_id, :value => @question.id %>
+    <%= f.submit "質問に回答する", class: "btn btn-primary btn-lg btn-block my-3" %>
+    <% end %>
+  </div>
+</div>

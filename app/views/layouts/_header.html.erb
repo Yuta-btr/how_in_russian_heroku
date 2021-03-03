@@ -1,0 +1,45 @@
+
+<nav class="navbar navbar-dark bg-dark p-0 pr-1 pl-2">
+
+  <nav class="navbar navbar-dark bg-dark">
+    <%= link_to root_path, class: "navbar-brand" do %>
+    <%= image_tag "how-in-russian-logo.png", class: "service_logo" %>
+    <% end %>
+  </nav>
+
+  <form class="form-inline ml-auto">
+    <%= link_to "質問", new_question_path, class: "btn btn-success" %>
+  </form>
+
+  <ul class="nav nav-pills">
+    <% if user_signed_in? %>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+        <% if current_user.profile_img? %>
+        <%= image_tag current_user.profile_img.url, class:"icon_dropdown" %>
+        <% else %>
+        <%= image_tag "no_image.jpg", class:"icon_dropdown" %>
+        <% end %>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <%= link_to "マイページ／お知らせ", my_page_path, class: "dropdown-item" %>
+        <%= link_to "マイページ編集", my_page_edit_path, class: "dropdown-item" %>
+        <div class="dropdown-divider"></div>
+        <%= link_to "ログアウト", sign_out_path, class: "dropdown-item" %>
+      </div>
+    </li>
+    <% else %>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        ログイン
+      </a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <%= link_to "ログイン", sign_in_path, class: "dropdown-item" %>
+        <div class="dropdown-divider"></div>
+        <%= link_to "アカウント新規作成", sign_up_path, class: "dropdown-item" %>
+      </div>
+    </li>
+    <% end %>
+  </ul>
+
+</nav>

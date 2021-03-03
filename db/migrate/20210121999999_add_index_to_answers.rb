@@ -1,4 +1,4 @@
-class AddAttributesToAnswers < ActiveRecord::Migration[6.0]
+class AddIndexToAnswers < ActiveRecord::Migration[6.0]
   # def change
   #   add_column :answers, :answer, :text
   #   add_column :answers, :explanation, :text

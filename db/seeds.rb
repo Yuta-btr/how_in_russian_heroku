@@ -25,8 +25,10 @@ end
 
 
 # 質問者と回答者それぞれの配列
-question_users = User.order(:user_id).take(10)
-answer_users = User.order(user_id: "DESC").take(10)
+# question_users = User.order(:user_id).take(10)
+question_users = User.order(:created_at).take(10)
+# answer_users = User.order(user_id: "DESC").take(10)
+answer_users = User.order(created_at: "DESC").take(10)
 # CSVの列ごとに質問と回答を作成
 CSV.foreach('./db/csv/phrases.csv',headers: true).with_index(1) do |row, ln|
   # make question
@@ -47,7 +49,7 @@ end
 
 
 # テスト用のブックマーク情報
-bookmark_users = User.order(:user_id).take(10)
+bookmark_users = User.order(:created_at).take(10)
 bookmark_users.each_with_index do |user, index|
   (3..5).each do |n|
     user.bookmarks.create!(

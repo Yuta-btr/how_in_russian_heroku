@@ -48,7 +48,8 @@ yarn-debug.log*
 # その他
 .DS_Store
 app/javascript/images
-public/uploads
+# public/uploads
+public/uploads/tmp
 
 
 #####################

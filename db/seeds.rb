@@ -18,7 +18,7 @@ require "csv"
     name: Faker::Name.first_name,
     profile_img: open("./db/fixtures/test#{img_num}.png"),
     nationality: "日本",
-    introduction: "No.#{n+1}のテストユーザーです。" + "よろしく。" * (n+1),
+    introduction: "No.#{n+1}のテストユーザーです。",
     website: "http://www.example.com/"
   )
 end

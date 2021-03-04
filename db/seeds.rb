@@ -10,7 +10,7 @@ require "csv"
 
 
 # テストユーザー
-20.times do |n|
+5.times do |n|
   img_num = n % 4 + 1
   User.create!(
     email: "batur#{n+1}@test.com",
@@ -26,9 +26,9 @@ end
 
 # 質問者と回答者それぞれの配列
 # question_users = User.order(:user_id).take(10)
-question_users = User.order(:created_at).take(10)
+question_users = User.order(:created_at).take(5)
 # answer_users = User.order(user_id: "DESC").take(10)
-answer_users = User.order(created_at: "DESC").take(10)
+answer_users = User.order(created_at: "DESC").take(5)
 # CSVの列ごとに質問と回答を作成
 CSV.foreach('./db/csv/phrases.csv',headers: true).with_index(1) do |row, ln|
   # make question
